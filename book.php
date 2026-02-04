@@ -29,9 +29,6 @@ $book = $stmt->fetch();
     <p>
         <?= $book['summary']; ?>
     </p>
-    <p>
-        <?= $book[''] ?>
-    </p>
-
+    <form></form>
 </body>
 </html>
