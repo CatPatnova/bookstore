@@ -1,5 +1,4 @@
 <?php
-
 require_once('./connection.php');
 
 $id = $_GET['id'];
@@ -15,8 +14,6 @@ $stmt = $pdo->prepare(
 $stmt->execute(['id' => $id]);
 $book = $stmt->fetch();
 
-
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -26,21 +23,15 @@ $book = $stmt->fetch();
     <title>Document</title>
 </head>
 <body>
-    <h1>
-        <?= $book['title']; ?>
-    </h1>
-    <h3>
-        <?= $book['first_name'] . ' ' . $book['last_name']; ?>
-    </h3>
-    <br>
-    <h2><?= $book['price']; ?></h2>
-    <p>
-        <?= $book['summary']; ?>
-    </p>
-
-    <a href="edit.php?id=<?= $book['id'] ?>">Muuda</a>
-
-    <a href="index.php">Tagasi</a>
+    <h3>Muuda: <?= $book['title']; ?></h3>
+    <form action="update.php" method="post">
+        <input type="hidden" name="id" value="<?= $id; ?>">
+        <input type="text" name="title" value="<?= $book['title'] ?>">
+        <input type="text" name="price" value="<?= $book['price'] ?>">
+        <input type="text" name="summary" value="<?= $book['summary'] ?>">
+        <input type="text" name="author" value="<?= $book['first_name'] . ' ' . $book['last_name']; ?>">
+        <input type="submit" value="Salvesta">
+    </form>
     
 </body>
 </html>
