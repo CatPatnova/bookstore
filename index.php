@@ -22,6 +22,8 @@ $stmt = $pdo->query('SELECT title, id FROM books');
                 <?= $book['title']; ?>
             </a>
         </li>
+<?php } ?>
+    </ul>
 </body>
 </html>
-<?php } ?>
+

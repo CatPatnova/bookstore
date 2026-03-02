@@ -26,6 +26,7 @@ $book = $stmt->fetch();
     <title>Document</title>
 </head>
 <body>
+    <img src="<?= $book['cover_path'] ?>">
     <h1>
         <?= $book['title']; ?>
     </h1>
@@ -34,6 +35,7 @@ $book = $stmt->fetch();
     </h3>
     <br>
     <h2><?= $book['price']; ?></h2>
+    <p><?=  $book['language']; ?></p>
     <p>
         <?= $book['summary']; ?>
     </p>
