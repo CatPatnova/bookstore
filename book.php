@@ -7,13 +7,18 @@ $id = $_GET['id'];
 // SELECT * FROM books WHERE id = :id
 
 $stmt = $pdo->prepare(
-    'SELECT b.*, a.first_name , a.last_name FROM books b
-    LEFT JOIN book_authors ba ON b.id = ba.book_id
-    LEFT JOIN authors a ON ba.author_id = a.id
+    'SELECT b.* FROM books b
     WHERE b.id = :id;'
     );
 $stmt->execute(['id' => $id]);
 $book = $stmt->fetch();
+
+$authors = $pdo->prepare(
+    'SELECT a.* FROM authors a 
+    LEFT JOIN book_authors ba ON a.id = ba.author_id 
+    WHERE ba.book_id = :id'
+);
+$authors->execute(['id' => $id]);
 
 
 
@@ -31,14 +36,15 @@ $book = $stmt->fetch();
         <?= $book['title']; ?>
     </h1>
     <h3>
-        <?= $book['first_name'] . ' ' . $book['last_name']; ?>
+        <?php
+        while ($author = $authors->fetch()) { ?>
+            <p><?= $author['first_name'] . ' ' . $author['last_name']; ?></p>
+        <?php } ?>
     </h3>
     <br>
     <h2><?= $book['price']; ?></h2>
-    <p><?=  $book['language']; ?></p>
-    <p>
-        <?= $book['summary']; ?>
-    </p>
+    <p><?= $book['language']; ?></p>
+    <p><?= $book['summary']; ?></p>
 
     <a href="edit.php?id=<?= $book['id'] ?>">Muuda</a>
 
